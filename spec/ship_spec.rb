@@ -7,11 +7,15 @@ describe Ship do
  let(:player){double :player}
 
  it 'should start with an available status' do
-   expect(ship.status).to eq('available')
+   expect(ship.positioned).to eq(false)
  end
 
  it 'should be able to be placed' do
-   expect(ship.placed!).to change{ship.status}.to("placed")
+   expect{ship.placed!}.to change{ship.positioned}.to(true)
  end
 
+ it 'should know if it has been sunk' do
+   expect{ship.sunk!}.to change(ship.sunk?).to(true)
+ end
+ 
 end

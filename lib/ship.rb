@@ -3,10 +3,13 @@ require_relative 'player'
 
 class Ship
 
-  attr_reader :status
+  attr_reader :positioned
   
   def initialize
-    @status ||= 'available'
+    @positioned ||= false
   end
 
+  def placed!
+    @positioned = true
+  end
 end
