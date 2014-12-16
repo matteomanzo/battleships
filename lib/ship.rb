@@ -3,13 +3,25 @@ require_relative 'player'
 
 class Ship
 
-  attr_reader :positioned
-  
   def initialize
     @positioned ||= false
+    @sunk ||= false
   end
 
+  def positioned?
+    @positioned
+  end
+
+  def sunk?
+    @sunk
+  end
+  
   def placed!
     @positioned = true
   end
+
+  def sunk!
+    @sunk = true
+  end
+  
 end
