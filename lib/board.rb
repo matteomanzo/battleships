@@ -10,4 +10,8 @@ class Board
     ('a'..'j').each{|l| (1..10).each{|n| @grid["#{l}#{n}".to_sym] = :water}}
   end
 
+  def place ship, cell
+    self.grid[cell] = ship
+  end
+
 end

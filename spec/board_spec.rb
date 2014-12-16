@@ -9,8 +9,13 @@ let(:ship){double :ship}
     expect(board.grid[:a1]).to eq(:water)
   end
 
-  xit 'should change the value to :ship when a ship has placed' do
-    expect{board.place(ship)}.to change{board.grid[:b4]}.to (:ship)
+  it 'will know that a cell contains a ship when a ship is placed' do
+    expect{board.place(ship, :b4)}.to change{board.grid[:b4]}.to (ship)
   end
+
+  it 'will know if a player\'s shot hits a ship' do
+    expect{player.shoot!(:b4)}.to change{board.hit?(:b4)}.to (true)
+  end
+
   
 end
