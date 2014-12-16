@@ -20,7 +20,7 @@ class Board
     }
   end
 
-  states = [:empty, :hit, :miss, :ship, :sunk]
+  states = [:empty, :hit, :miss]
   states.each do |status|
     define_method status do
       @status = status

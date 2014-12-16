@@ -6,20 +6,16 @@ describe Ship do
   let(:grid){double :grid}
   let(:player){double :player}
 
-  it 'should start with an available status' do
-    expect(ship.status).to be(:available)
-  end
-
-  it 'should be able to be placed' do
-    expect{ship.positioned}.to change{ship.status}.to(:positioned)
-  end
-
   it 'should know if it has been sunk' do
     expect{ship.sunk}.to change{ship.status}.to(:sunk)
   end
 
-  it 'should be able to contain ships in a certain position' do
-    expect{ship.placed!('a1', @horizontally)}.to change{ship.status}.to(:positioned)
+  it 'should have a floating status when created' do
+    expect(ship.status).to eq(:floating)
   end
- 
+
+  it 'should count its hits' do
+    expect{ship.hit!}.to change{ship.hits_count}.by (1)
+  end
+
 end
