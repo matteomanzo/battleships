@@ -3,25 +3,29 @@ require_relative 'player'
 
 class Ship
 
-  def initialize
-    @positioned ||= false
-    @sunk ||= false
+  attr_reader :status, :size
+
+  def initialize(size)
+    @status ||= :available
+    @size = size
   end
 
-  def positioned?
-    @positioned
+  states = [:available, :positioned, :sunk]
+  states.each do |status|
+    define_method status do
+      @status = status
+    end
   end
 
-  def sunk?
-    @sunk
-  end
-  
-  def placed!
-    @positioned = true
-  end
+  def placed!(grid_ref, layout)
 
-  def sunk!
-    @sunk = true
   end
   
 end
+
+aircraft_carrier = Ship.new(5)
+battleship = Ship.new(4)
+submarine = Ship.new(3)
+destroyer = Ship.new(3)
+patrol_boat = Ship.new(2)
+
