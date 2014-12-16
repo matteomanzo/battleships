@@ -15,8 +15,7 @@ describe Ship do
   end
 
   it 'should sink when its entire length has been hit' do
-    3.times{ship.hit!}
-    expect(ship.sunk?).to eq true
+    expect{3.times{ship.hit!}}.to change{ship.sunk?}.to true
   end
 
 end
