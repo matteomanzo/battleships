@@ -7,11 +7,7 @@ describe Ship do
   let(:player){double :player}
 
    it 'should have a floating status when created' do
-    expect(ship.status).to eq(:floating)
-  end
-
-  it 'should know if it has been sunk' do
-    expect{ship.sunk}.to change{ship.status}.to(:sunk)
+    expect(ship.sunk?).to eq false
   end
 
   it 'should count its hits' do
@@ -19,7 +15,8 @@ describe Ship do
   end
 
   it 'should sink when its entire length has been hit' do
-    expect{ 3.times{ship.hit!} }.to change{ship.status}.to(:sunk)
+    3.times{ship.hit!}
+    expect(ship.sunk?).to eq true
   end
 
 end
