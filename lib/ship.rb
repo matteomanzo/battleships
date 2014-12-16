@@ -3,11 +3,12 @@ require_relative 'player'
 
 class Ship
 
-  attr_reader :status, :size
+  attr_reader :status, :size, :hit_count
 
   def initialize(size)
     @status ||= :floating
     @size = size
+    @hit_count ||= 0
   end
 
   states = [:floating, :sunk]
@@ -16,4 +17,9 @@ class Ship
       @status = status
     end
   end
+
+  def hit!
+    @hit_count += 1
+  end
+
 end
