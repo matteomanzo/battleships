@@ -1,4 +1,4 @@
-require_relative 'grid'
+require_relative 'board'
 require_relative 'ship'
 
 class Player
