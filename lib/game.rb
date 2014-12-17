@@ -9,6 +9,6 @@ class Game
   def initialize(name1, name2)
     @player1 = Player.new(name1, Board.new)
     @player2 = Player.new(name2, Board.new)
-    
   end
+  
 end

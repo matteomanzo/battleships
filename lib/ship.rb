@@ -18,7 +18,6 @@ class Ship
   end
 
   def hit!
-    raise "you cant hit me im sunk" if sunk?
     @hit_count += 1
   end
 

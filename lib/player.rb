@@ -15,4 +15,8 @@ class Player
     @board.new_cell_assignment(cell, ship)
   end
 
+  def shoot(cell)
+    @board.receive_shot(cell)
+  end
+
 end
