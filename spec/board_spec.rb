@@ -3,9 +3,9 @@ require 'ship'
 describe Board do
 
 let(:board){Board.new}
-let(:ship){double :ship, is_a?: Ship}
+let(:ship){double :ship, is_a?: Ship, size: 3}
 let(:battleship){double :ship, is_a?: Ship}
-let(:submarine) {double :submarine, is_a?: Ship}
+let(:submarine) {double :ship, is_a?: Ship, size: 5}
 
   it 'should start with the value of water' do
     expect(board.grid[:a1]).to eq(:water)
@@ -36,8 +36,11 @@ let(:submarine) {double :submarine, is_a?: Ship}
     expect{board.new_cell_assignment(:c5, battleship)}.to raise_error(RuntimeError, "There is already a ship in this cell")
   end
 
-  it 'should be able to place ships longer than one cell size' do
-    expect{board.new_cell_assignment(:c2, :d2, :e2, submarine)}.to change{board_grid[:c2, :d2, :e2]}.to (submarine)
+  it 'should be able to place ships longer than one cell horizontally' do
+    expect{board.place_ship(:f3, ship, "horizontal")}.to change{board.grid[:f5]}.to (ship)
   end
   
+  it 'should be able to place ships longer than one cell vertically' do
+    expect{board.place_ship(:f3, submarine, "vertical")}.to change{board.grid[:j3]}.to (submarine)
+  end
 end

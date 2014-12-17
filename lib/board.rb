@@ -18,7 +18,7 @@ class Board
 
   def new_cell_assignment(cell, value)
     cell_content = self.grid[cell]
-    #raise "There is already a ship in this cell" if cell_content.is_a?(Ship) unless value == :hit
+    raise "There is already a ship in this cell" if cell_content.is_a?(Ship) unless value == :hit
     self.grid[cell] = value
   end
 
@@ -31,23 +31,25 @@ class Board
     size = ship.size
     cell = cell.to_s
     cell_array = cell.split(//)
-    l = cell_array[0]
-    n = cell_array[1]
+    @l = cell_array[0]
+    @n = cell_array[1]
     if orientation == "horizontal"
-      size.times do
-        n = n.to_i
-        next_n = n+1;
+      size.times do |i|
+        @n = @n.to_i
+        next_n = @n+i;
         new_cell = "#{@l}#{next_n}".to_sym
         new_cell_assignment(new_cell, ship)
       end
-    # elsif orientation == "vertical"
-    #   size.times do
-    #     next_l = ??????;
-    #     new_cell = next_l+n
-    #     new_cell_assignment(new_cell, ship)
-    #   end
-    # else 
-    #   raise "please state either a horizontal or vertical orientation"
+    elsif orientation == "vertical"
+      new_cell_assignment(cell.to_sym, ship)
+      size -= 1
+      size.times do |i|
+        @l = @l.succ;
+        new_cell = @l+@n
+        new_cell_assignment(new_cell.to_sym, ship)
+      end
+    else 
+      raise "please state either a horizontal or vertical orientation"
     end  
   end
 
