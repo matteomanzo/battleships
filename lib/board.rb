@@ -14,4 +14,13 @@ class Board
     self.grid[cell] = ship
   end
 
+  def hit cell
+    grid_content = self.grid[cell]
+    if grid_content.is_a?(Ship)
+      self.grid[cell] = :hit
+    else
+      self.grid[cell] = :miss
+    end
+  end
+
 end
