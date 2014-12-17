@@ -23,5 +23,10 @@ let(:ship){double :ship, is_a?: Ship}
   it 'should know if a player misses a shot' do
     expect{board.receive_shot(:c5)}.to change{board.grid[:c5]}.to (:miss)
   end
+
+  it 'should raise an error if trying to hit a cell twice' do
+    board.new_cell_assignment(:c5, :hit)
+    expect(lambda { board.receive_shot(:c5) }).to raise_error(RuntimeError, 'You cannot hit the same cell twice!')
+  end
   
 end
