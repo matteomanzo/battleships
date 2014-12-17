@@ -17,6 +17,8 @@ class Board
   end
 
   def new_cell_assignment(cell, value)
+    cell_content = self.grid[cell]
+    raise "There is already a ship in this cell" if cell_content.is_a?(Ship) unless value == :hit
     self.grid[cell] = value
   end
 
