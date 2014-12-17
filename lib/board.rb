@@ -12,7 +12,7 @@ class Board
 
   def receive_shot cell
     cell_content = self.grid[cell]
-    raise 'You cannot hit the same cell twice!' if cell_content == :hit || :miss 
+    raise 'You cannot hit the same cell twice!' if cell_content == :hit || cell_content == :miss
     cell_content.is_a?(Ship) ? ship_hit(cell, cell_content) : new_cell_assignment(cell, :miss)
   end
 
