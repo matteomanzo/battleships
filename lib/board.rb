@@ -10,17 +10,18 @@ class Board
     ('a'..'j').each{|l| (1..10).each{|n| @grid["#{l}#{n}".to_sym] = :water}}
   end
 
-  def place ship, cell
-    self.grid[cell] = ship
+  def receive_shot cell
+    cell_content = self.grid[cell]
+    cell_content.is_a?(Ship) ? ship_hit(cell_content, cell) : new_cell_assignment(cell, :miss)
   end
 
-  def hit cell
-    grid_content = self.grid[cell]
-    if grid_content.is_a?(Ship)
-      self.grid[cell] = :hit
-    else
-      self.grid[cell] = :miss
-    end
+  def new_cell_assignment(cell, value)
+    self.grid[cell] = value
+  end
+
+  def ship_hit(ship, cell)
+    new_cell_assignment(cell, :hit)
+    ship.hit!
   end
 
 end

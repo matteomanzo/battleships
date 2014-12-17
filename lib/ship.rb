@@ -5,7 +5,7 @@ class Ship
 
   attr_reader :size, :hit_count
 
-  SHIPS = {aircraft_carrier: 5, battleship: 4, submarine: 3, destroyer: 3, petrol_boat: 2}
+  SHIPS = {aircraft_carrier: 5, battleship: 4, submarine: 3, destroyer: 3, patrol_boat: 2}
 
   def initialize(size)
     @size = size

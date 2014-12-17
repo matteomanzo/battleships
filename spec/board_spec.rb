@@ -3,7 +3,7 @@ require 'ship'
 describe Board do
 
 let(:board){Board.new}
-let(:ship){Ship.new(3)}
+let(:ship){double :ship, is_a?: Ship}
 
   it 'should start with the value of water' do
     expect(board.grid[:a1]).to eq(:water)
@@ -15,13 +15,13 @@ let(:ship){Ship.new(3)}
 
   it 'will know if a player\'s shot hits a ship' do
     board.place(ship, :b4)
-    puts board.grid[:b4].inspect
-    expect{board.hit(:b4)}.to change{board.grid[:b4]}.to (:hit)
+    allow(ship).to receive(:hit!)
+    expect{board.receive_shot(:b4)}.to change{board.grid[:b4]}.to (:hit)
 
   end
 
   it 'should know if a player misses a shot' do
-    expect{board.hit(:c5)}.to change{board.grid[:c5]}.to (:miss)
+    expect{board.receive_shot(:c5)}.to change{board.grid[:c5]}.to (:miss)
   end
   
 end
