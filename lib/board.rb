@@ -12,14 +12,14 @@ class Board
 
   def receive_shot cell
     cell_content = self.grid[cell]
-    cell_content.is_a?(Ship) ? ship_hit(cell_content, cell) : new_cell_assignment(cell, :miss)
+    cell_content.is_a?(Ship) ? ship_hit(cell, cell_content) : new_cell_assignment(cell, :miss)
   end
 
   def new_cell_assignment(cell, value)
     self.grid[cell] = value
   end
 
-  def ship_hit(ship, cell)
+  def ship_hit(cell, ship)
     new_cell_assignment(cell, :hit)
     ship.hit!
   end

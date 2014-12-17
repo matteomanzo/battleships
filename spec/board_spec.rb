@@ -10,11 +10,11 @@ let(:ship){double :ship, is_a?: Ship}
   end
 
   it 'will know that a cell contains a ship when a ship is placed' do
-    expect{board.place(ship, :b4)}.to change{board.grid[:b4]}.to (ship)
+    expect{board.new_cell_assignment(:b4, ship)}.to change{board.grid[:b4]}.to (ship)
   end
 
   it 'will know if a player\'s shot hits a ship' do
-    board.place(ship, :b4)
+    board.new_cell_assignment(:b4, ship)
     allow(ship).to receive(:hit!)
     expect{board.receive_shot(:b4)}.to change{board.grid[:b4]}.to (:hit)
 

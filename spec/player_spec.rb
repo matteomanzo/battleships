@@ -1,11 +1,14 @@
 require 'player'
 
+
 describe Player do
 
-  let(:player){Player.new}
   let(:ship){double :ship}
-  let(:board){double :board}
+  let(:board){double :board }
+  let(:player){Player.new('name', board)}
   
   it 'should be able to place a ship' do
-    expect{player.place_ship(ship, :c5)}.to 
+    expect(board).to receive(:new_cell_assignment).with(:c5, ship)
+    player.place(:c5, ship)
+  end
 end
