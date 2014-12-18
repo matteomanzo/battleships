@@ -18,7 +18,6 @@ class Board
 
   def new_cell_assignment(cell, value)
     cell_content = self.grid[cell]
-    raise "There is already a ship in this cell" if cell_content.is_a?(Ship) unless value == :hit
     self.grid[cell] = value
   end
 
@@ -29,7 +28,7 @@ class Board
 
   def place_ship(cell, ship, orientation)
     cells =  get_all_cells_for ship, orientation, cell
-    raise "cant put me here " if cells.any?{|cell|grid[cell].is_a? Ship}
+    raise "There is already a ship in this location!" if cells.any?{|cell|grid[cell].is_a? Ship}
     cells.each {|cell|grid[cell] = ship}
   end
 

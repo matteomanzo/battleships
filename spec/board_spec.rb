@@ -31,11 +31,6 @@ let(:submarine) {double :ship, is_a?: Ship, size: 5}
     expect(lambda { board.receive_shot(:c5) }).to raise_error(RuntimeError, 'You cannot hit the same cell twice!')
   end
 
-  it 'should not accept a ship into the same cell twice' do
-    board.new_cell_assignment(:c5, ship)
-    expect{board.new_cell_assignment(:c5, battleship)}.to raise_error(RuntimeError, "There is already a ship in this cell")
-  end
-
   it 'should be able to place ships longer than one cell horizontally' do
     expect{board.place_ship(:f3, ship, "horizontal")}.to change{board.grid[:f5]}.to (ship)
   end
@@ -54,6 +49,10 @@ let(:submarine) {double :ship, is_a?: Ship, size: 5}
 
   it 'should not place any part of a ship if another is in its way' do
     board.new_cell_assignment(:b5, ship)
-    expect(board.get_all_cells_for(ship, "vertical", :a5)).to raise_error(RuntimeError, 'You can\'t place a ship, thereis another on your way!')
+    expect{board.place_ship(:a5, ship, "vertical")}.to raise_error(RuntimeError, "There is already a ship in this location!")
+  end
+
+  it 'should not place any part of a ship that goes out of the grid' do
+    expect{board.place_ship(:a9, ship, "horizontal")}.to raise_error(RuntimeError, "There is not enough space for your ship in this location")
   end
 end
