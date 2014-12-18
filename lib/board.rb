@@ -34,10 +34,12 @@ class Board
     @l = cell_array[0]
     @n = cell_array[1]
     if orientation == "horizontal"
+      cell.next!
       size.times do |i|
         @n = @n.to_i
         next_n = @n+i;
         new_cell = "#{@l}#{next_n}".to_sym
+        puts new_cell
         new_cell_assignment(new_cell, ship)
       end
     elsif orientation == "vertical"
@@ -46,6 +48,7 @@ class Board
       size.times do |i|
         @l = @l.succ;
         new_cell = @l+@n
+        puts new_cell
         new_cell_assignment(new_cell.to_sym, ship)
       end
     else 
