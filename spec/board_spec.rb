@@ -40,11 +40,11 @@ let(:submarine) {double :ship, is_a?: Ship, size: 5}
   end
 
   it 'should be able to get all coordiantes for a ship' do
-    expect(board.get_all_cells_for(ship, "horizontal", :a1)).to eq [:a1,:a2,:a3]
+    expect(board.get_all_cells_for(:a1, ship, "horizontal")).to eq [:a1,:a2,:a3]
   end
 
   it 'should be able to get all coordiantes for a ship vertically' do
-    expect(board.get_all_cells_for(ship, "vertical", :a1)).to eq [:a1,:b1,:c1]
+    expect(board.get_all_cells_for(:a1, ship, "vertical")).to eq [:a1,:b1,:c1]
   end
 
   it 'should not place any part of a ship if another is in its way' do
