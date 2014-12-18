@@ -29,14 +29,19 @@ class Board
 
   def place_ship(cell, ship, orientation)
     size = ship.size
+
     cell = cell.to_s
+
     cell_array = cell.split(//)
-    l = cell_array[0]
-    n = cell_array[1]
+
+    @l = cell_array[0]
+    @n = cell_array[1]
+
     if orientation == "horizontal"
+
       size.times do
-        n = n.to_i
-        next_n = n+1;
+        @n = @n.to_i
+        next_n = @n+1;
         new_cell = "#{@l}#{next_n}".to_sym
         new_cell_assignment(new_cell, ship)
       end
