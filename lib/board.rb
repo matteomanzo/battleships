@@ -28,34 +28,22 @@ class Board
   end
 
   def place_ship(cell, ship, orientation)
-  if "horizontal"
-    size = ship.size
-    size.times  do 
-      cell = cell.to_s.next.to_sym 
-      cell_content = self.grid[cell] 
-        if cell_content.is_a?(Ship) 
-          raise "blah" 
-        else
-          new_cell_assignment(cell, ship)
-        end
-      end
-    size = ship.size
-    size.times {cell = cell.to_s.next.to_sym; new_cell_assingment(cell, ship)}
-  elsif "vertical"
-    size.times do
-      cell = cell.to_s.reverse.next.reverse.to_sym
-      cell_content = self.grid[cell]
-      if cell_content.is_a?(Ship) 
-          raise "blah" 
-        else
-          new_cell_assignment(cell, ship)
-        end
-      end
-    size.times {cell = cell.to_s.reverse.next.reverse.to_sym; new_cell_assingment(cell, ship)}
-  else 
-    raise "please state either a horizontal or vertical orientation"
-  end  
-end
+    cells =  get_all_cells_for ship, orientation, cell
+    raise "cant put me here " if cells.any?{|cell|grid[cell].is_a? Ship}
+    cells.each {|cell|grid[cell] = ship}
+  end
 
+  def get_all_cells_for ship, orientation, cell
+    cells = [cell]
+    (ship.size - 1).times do 
+      cells << next_cell(cells.last, orientation)
+    end
+    cells
+  end
+
+  def next_cell cell, orientation
+    return cell.next if orientation == "horizontal"
+    return cell.to_s.reverse.next.reverse.to_sym if orientation == "vertical" 
+  end
 
 end

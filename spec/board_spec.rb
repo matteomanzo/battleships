@@ -43,4 +43,17 @@ let(:submarine) {double :ship, is_a?: Ship, size: 5}
   it 'should be able to place ships longer than one cell vertically' do
     expect{board.place_ship(:f3, submarine, "vertical")}.to change{board.grid[:j3]}.to (submarine)
   end
+
+  it 'should be able to get all coordiantes for a ship' do
+    expect(board.get_all_cells_for(ship, "horizontal", :a1)).to eq [:a1,:a2,:a3]
+  end
+
+  it 'should be able to get all coordiantes for a ship vertically' do
+    expect(board.get_all_cells_for(ship, "vertical", :a1)).to eq [:a1,:b1,:c1]
+  end
+
+  it 'should not place any part of a ship if another is in its way' do
+    board.new_cell_assignment(:b5, ship)
+    expect(board.get_all_cells_for(ship, "vertical", :a5)).to raise_error(RuntimeError, 'You can\'t place a ship, thereis another on your way!')
+  end
 end
