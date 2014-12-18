@@ -28,32 +28,34 @@ class Board
   end
 
   def place_ship(cell, ship, orientation)
+  if "horizontal"
     size = ship.size
-    cell = cell.to_s
-    cell_array = cell.split(//)
-    @l = cell_array[0]
-    @n = cell_array[1]
-    if orientation == "horizontal"
-      cell.next!
-      size.times do |i|
-        @n = @n.to_i
-        next_n = @n+i;
-        new_cell = "#{@l}#{next_n}".to_sym
-        puts new_cell
-        new_cell_assignment(new_cell, ship)
+    size.times  do 
+      cell = cell.to_s.next.to_sym 
+      cell_content = self.grid[cell] 
+        if cell_content.is_a?(Ship) 
+          raise "blah" 
+        else
+          new_cell_assignment(cell, ship)
+        end
       end
-    elsif orientation == "vertical"
-      new_cell_assignment(cell.to_sym, ship)
-      size -= 1
-      size.times do |i|
-        @l = @l.succ;
-        new_cell = @l+@n
-        puts new_cell
-        new_cell_assignment(new_cell.to_sym, ship)
+    size = ship.size
+    size.times {cell = cell.to_s.next.to_sym; new_cell_assingment(cell, ship)}
+  elsif "vertical"
+    size.times do
+      cell = cell.to_s.reverse.next.reverse.to_sym
+      cell_content = self.grid[cell]
+      if cell_content.is_a?(Ship) 
+          raise "blah" 
+        else
+          new_cell_assignment(cell, ship)
+        end
       end
-    else 
-      raise "please state either a horizontal or vertical orientation"
-    end  
-  end
+    size.times {cell = cell.to_s.reverse.next.reverse.to_sym; new_cell_assingment(cell, ship)}
+  else 
+    raise "please state either a horizontal or vertical orientation"
+  end  
+end
+
 
 end
