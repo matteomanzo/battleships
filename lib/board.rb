@@ -7,7 +7,7 @@ class Board
 
   def initialize
     @grid = {}
-    ('a'..'j').each{|l| (1..10).each{|n| @grid["#{l}#{n}".to_sym] = :water}}
+    ('a'..'j').each{|l| (0..9).each{|n| @grid["#{l}#{n}".to_sym] = :water}}
   end
 
   def receive_shot cell
@@ -48,11 +48,8 @@ class Board
 
   def outside_grid?(cell, ship, orientation)
     chars = cell.to_s.split(//)
-    if orientation == 'vertical'
-      ('j'.ord + 1) - chars[1].ord < ship.size
-    else
-      (11 - chars[2].to_i) < ship.size
-    end
+    ('j'.ord + 1) - chars[0].ord < ship.size && orientation == "vertical"
+    return true if (11 - chars[1].to_i) < ship.size && orientation == "horizontal"
   end
 
 end
